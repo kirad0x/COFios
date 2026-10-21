@@ -1,0 +1,32 @@
+name: Build COF iOS IPA
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-13
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '14.3.1'
+
+      - name: Clone Xash3D-FWGS iOS
+        run: |
+          git clone --recursive https://github.com/FWGS/xash3d-fwgs.git
+          cd xash3d-fwgs
+
+      - name: Build IPA
+        run: |
+          echo "Building Xash3D engine for Cry of Fear..."
+          # Build komutları sonraki adımda eklenecek
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: COF-iOS-IPA
+          path: ./*.ipa
